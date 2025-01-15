@@ -1,105 +1,115 @@
-// Import the core Flutter material design widgets and components
+//--------------------------------
+// 1. IMPORTS
+//--------------------------------
+// Core Flutter material design widgets and utilities
 import 'package:flutter/material.dart';
-// Import the flutter_bloc package for BLoC pattern implementation
+// BLoC pattern implementation package
 import 'package:flutter_bloc/flutter_bloc.dart';
-// Import the weather repository that handles data fetching
+// Weather data repository
 import 'package:weather_app/domain/repository/weather_repo.dart';
-// Import the screen for displaying current weather
+// Screen for displaying current location weather
 import 'package:weather_app/presentation/current_weather.dart';
-// Import the WeatherBloc that manages the app's state
+// Weather state management bloc
 import 'application/weather_bloc/weather_bloc.dart';
-// Import the search page screen
+// Screen for city search functionality
 import 'presentation/search_page.dart';
 
-// The main entry point of the application
+//--------------------------------
+// 2. APP ENTRY POINT
+//--------------------------------
+// Main function that starts the application
 void main() {
-  // Initialize and run the app with MainApp as the root widget
+  // Initialize and launch the app with MainApp as root
   runApp(const MainApp());
 }
 
-// Define the root widget of the application
-// StatelessWidget is used because this widget doesn't need to maintain any state
+//--------------------------------
+// 3. ROOT WIDGET
+//--------------------------------
+// Root widget of the application
+// Uses StatelessWidget as it doesn't need to maintain state
 class MainApp extends StatelessWidget {
-
+  // Constructor with optional key for widget identification
   const MainApp({super.key});
 
-  // The build method that creates the widget tree
+  // Build method defining the widget structure
   @override
   Widget build(BuildContext context) {
-    // BlocProvider makes the WeatherBloc available to all child widgets in the tree
+    // BlocProvider makes WeatherBloc available throughout the app
     return BlocProvider(
-      // Create a new instance of WeatherBloc with a WeatherRepository
-      // This WeatherBloc will manage all weather-related state changes
+      // Create WeatherBloc instance with repository
       create: (context) => WeatherBloc(WeatherRepository()),
       
-      // MaterialApp is the root widget that provides material design functionality
+      // MaterialApp sets up the basic app structure
       child: const MaterialApp(
-        // Set the app's background color
+        // App theme color
         color: Colors.black,
-        // Hide the debug banner in the top-right corner of the app
+        // Remove debug banner from top-right corner
         debugShowCheckedModeBanner: false,
-        // Set MainScreen as the home screen (initial screen) of the app
+        // Initial screen of the app
         home: MainScreen(),
       ),
     );
   }
 }
 
-// Define the main screen widget that shows the navigation buttons
-// This is a StatelessWidget as it doesn't need to maintain any internal state
+//--------------------------------
+// 4. MAIN SCREEN
+//--------------------------------
+// Main screen widget with navigation buttons
 class MainScreen extends StatelessWidget {
-  // Constructor with optional key parameter for widget identification
+  // Constructor with key parameter
   const MainScreen({super.key});
 
-  // Build method to create the widget tree for MainScreen
+  // Build method for creating the screen's UI
   @override
   Widget build(BuildContext context) {
-    // Scaffold provides the basic material design layout structure
+    // Scaffold provides the basic screen structure
     return Scaffold(
-      // Set the background color to a dark grey shade
-      // The [] operator is used to access predefined shades of the color
+      // Dark grey background color
       backgroundColor: Colors.grey[900],
       
-      // Center widget aligns its child in the middle of the available space
+      // Center everything in the screen
       body: Center(
-        // Column arranges its children in a vertical array
+        // Vertical arrangement of widgets
         child: Column(
-          // Center the column's content vertically in the available space
+          // Center content vertically
           mainAxisAlignment: MainAxisAlignment.center,
           
-          // List of widgets to be displayed vertically
+          // List of widgets to display
           children: [
-            // Button for navigating to city search functionality
+            //--------------------------------
+            // 5. CITY SEARCH BUTTON
+            //--------------------------------
             ElevatedButton(
-              // Define what happens when the button is pressed
+              // Navigation handler
               onPressed: () {
-                // Navigate to the SearchPage screen when pressed
-                // Navigator.push adds a new route to the navigation stack
+                // Navigate to search page
                 Navigator.push(
                   context,
-                  // MaterialPageRoute provides platform-specific transitions
                   MaterialPageRoute(builder: (context) => const SearchPage()),
                 );
               },
-              // Button text with extra padding using spaces
+              // Button label with padding
               child: const Text("      Search by City      "),
             ),
             
-            // Add vertical spacing of 10 logical pixels between buttons
+            // Vertical space between buttons
             const SizedBox(height: 10),
             
-            // Button for getting weather at current location
+            //--------------------------------
+            // 6. CURRENT LOCATION BUTTON
+            //--------------------------------
             ElevatedButton(
-              // Define what happens when the button is pressed
+              // Navigation handler
               onPressed: () {
-                // Navigate to the CurrentWeather screen when pressed
+                // Navigate to current weather page
                 Navigator.push(
                   context,
-                  // MaterialPageRoute provides platform-specific transitions
                   MaterialPageRoute(builder: (context) => const CurrentWeather()),
                 );
               },
-              // Button text with extra padding using spaces
+              // Button label with padding
               child: const Text("    Current Location    "),
             ),
           ],
