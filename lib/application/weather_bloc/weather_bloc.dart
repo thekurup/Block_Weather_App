@@ -29,6 +29,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
    on<SearchWeather>(_onSearchWeather);                 // Handle city search
    on<ResetWeather>(_onResetWeather);                  // Handle reset action
    on<FetchWeatherByLocation>(_onFetchWeatherByLocation);  // Handle location-based weather
+   on<SaveWeather>(_onSaveWeather);                    // Handle saving weather data
  }
 
  //--------------------------------
@@ -79,5 +80,37 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
  ) {
    // Reset to initial state (not searched)
    emit(WeatherIsNotSearched());
+ }
+
+ //--------------------------------
+ // 6. SAVE WEATHER HANDLER
+ //--------------------------------
+ // Handler for saving weather data
+ Future<void> _onSaveWeather(
+   SaveWeather event,           // Event containing weather data and city
+   Emitter<WeatherState> emit   // State emitter
+ ) async {
+   // Step 1: Show saving state
+   emit(WeatherIsLoading());
+
+   try {
+     // Step 2: Attempt to save weather data
+     final success = await weatherRepo.saveWeather(event.weather, event.city);
+     
+     // Step 3: Emit appropriate state based on save result
+     if (success) {
+       print('Weather data saved successfully');
+       // Show success state
+       emit(WeatherIsLoaded(event.weather));
+     } else {
+       print('Failed to save weather data');
+       // Show error state
+       emit(WeatherIsNotLoaded());
+     }
+   } catch (e) {
+     // Step 4: Handle any errors during save
+     print('Error saving weather: $e');
+     emit(WeatherIsNotLoaded());
+   }
  }
 }

@@ -5,7 +5,7 @@
 // It defines how we store and handle all weather-related information
 
 // Tells Dart to ignore warnings about variable types
-// We're doing this because our API data comes in a flexible format
+
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 //--------------------------------
@@ -15,6 +15,7 @@
 class WeatherModel {
  //--------------------------------
  // 3. WEATHER PROPERTIES
+ 
  //--------------------------------
  // These are all the weather details we store
  // 'final' means once we set these values, they can't be changed

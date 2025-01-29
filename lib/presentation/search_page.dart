@@ -129,7 +129,40 @@ class SearchPage extends StatelessWidget {
                            onPressed: () {
                              // Add search event with city name
                              weatherBloc.add(SearchWeather(cityController.text));
-                              // in here we sending an event to bloc
+
+                             //bloc working in search page 
+
+//                             User Input Trigger
+
+                        // User types city name "London" in search field
+                        // Presses search or submits
+
+
+                        // Event Dispatch
+
+                        // UI creates FetchWeatherEvent(city: "London")
+                        // Event is added to BLoC using add() method
+
+
+                        // BLoC Processing
+
+                        // BLoC receives FetchWeatherEvent
+                        // Immediately emits WeatherLoading state
+                        // Calls repository to fetch data
+
+
+                        // Repository & API Call
+
+                        // Repository makes API call
+                        // Converts response to Weather model
+
+
+                        // State Updates
+
+                        // Success: BLoC emits WeatherLoaded with weather data
+                        // Error: BLoC emits WeatherError with message
+
+                        
                              // Clear the input field
                              cityController.clear();
                            },

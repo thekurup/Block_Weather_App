@@ -62,3 +62,43 @@ class WeatherIsLoaded extends WeatherState {
 class WeatherIsNotLoaded extends WeatherState {
  // No additional properties needed for error state
 }
+
+//--------------------------------
+// 7. SAVING STATE
+//--------------------------------
+// State when weather data is being saved
+class WeatherIsSaving extends WeatherState {
+ // No additional properties needed while saving
+}
+
+//--------------------------------
+// 8. SAVE SUCCESS STATE
+//--------------------------------
+// State when weather data is successfully saved
+class WeatherSaveSuccess extends WeatherState {
+ // Success message to display to user
+ final String message;
+
+ // Constructor to initialize success message
+ WeatherSaveSuccess(this.message);
+
+ // Include message in state comparison
+ @override
+ List<Object?> get props => [message];
+}
+
+//--------------------------------
+// 9. SAVE ERROR STATE
+//--------------------------------
+// State when weather data save operation fails
+class WeatherSaveError extends WeatherState {
+ // Error message to display to user
+ final String error;
+
+ // Constructor to initialize error message
+ WeatherSaveError(this.error);
+
+ // Include error message in state comparison
+ @override
+ List<Object?> get props => [error];
+}

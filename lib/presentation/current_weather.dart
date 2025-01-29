@@ -78,6 +78,21 @@ class CurrentWeather extends StatelessWidget {
        onPressed: () {
          // Add event to fetch weather for current location
          weatherBloc.add(FetchWeatherByLocation());
+//          User taps "Current Location" button
+// FetchWeatherByLocation event is created
+// WeatherBloc calls getWeatherByLocation()
+// Location service asks for permission
+// If allowed:
+
+// Gets GPS coordinates
+// Calls API with coordinates
+// Returns weather data
+
+
+// If denied/error:
+
+// Throws exception
+// UI shows error message
        },
        // Location icon
        child: const Icon(Icons.my_location),

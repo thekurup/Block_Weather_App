@@ -3,6 +3,7 @@
 //--------------------------------
 // Import equatable package for easy comparison of objects
 import 'package:equatable/equatable.dart';
+import 'package:weather_app/domain/model/weather_model.dart';
 
 //--------------------------------
 // 2. BASE EVENT CLASS
@@ -47,3 +48,52 @@ class ResetWeather extends WeatherEvent {}
 // Event triggered when user wants weather for current location
 // No properties needed since it uses device location
 class FetchWeatherByLocation extends WeatherEvent {}
+
+//--------------------------------
+// 6. SAVE WEATHER EVENT
+//--------------------------------
+// Event triggered when user wants to save weather data
+class SaveWeather extends WeatherEvent {
+ // Weather data to be saved
+ final WeatherModel weather;
+ // City name for the weather data
+ final String city;
+
+ // Constructor to initialize weather and city
+ SaveWeather(this.weather, this.city);
+
+ // Include both weather and city in comparison
+ // This ensures unique identification of save events
+ @override
+ List<Object> get props => [weather, city];
+}
+
+//--------------------------------
+// 7. SAVE SUCCESS EVENT
+//--------------------------------
+// Event triggered when weather data is successfully saved
+class WeatherSaved extends WeatherEvent {
+ // Message to confirm save operation
+ final String message;
+
+ // Constructor to initialize success message
+ WeatherSaved(this.message);
+
+ @override
+ List<Object> get props => [message];
+}
+
+//--------------------------------
+// 8. SAVE ERROR EVENT
+//--------------------------------
+// Event triggered when weather save operation fails
+class WeatherSaveError extends WeatherEvent {
+ // Error message for failed save operation
+ final String error;
+
+ // Constructor to initialize error message
+ WeatherSaveError(this.error);
+
+ @override
+ List<Object> get props => [error];
+}
